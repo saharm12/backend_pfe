@@ -79,8 +79,9 @@ module.exports.changeName = (req, res)=>{
 }
 
 module.exports.changeLastName = (req, res)=>{
-  
-     conn.query('', [],(err,rows)=>{
+    const id = req.params.id ; 
+   const Lastname = req.body.Lastname ; 
+     conn.query('UPDATE user SET nom = ? WHERE id_user = ? ', [Lastname,id],(err,rows)=>{
  
          if(err)
          {
@@ -94,9 +95,10 @@ module.exports.changeLastName = (req, res)=>{
 
  module.exports.changepassword = (req, res)=>{
     const id = req.params.id ; 
-    const name = req.body.name ; 
+    const password = req.body.password; 
+    const hash = bcrypt.hashSync(newpass,saltRound); 
 
-     conn.query(' ', [],(err,rows)=>{ // les 2 cotes pour la requet SQL , le Tableau est pour les paramatres 
+     conn.query(' UPDATE user SET mdp = ? WHERE id_user = ? ', [mdp,id],(err,rows)=>{ // les 2 cotes pour la requet SQL , le Tableau est pour les paramatres 
  
          if(err)
          {
@@ -106,8 +108,11 @@ module.exports.changeLastName = (req, res)=>{
              res.json({'result':rows})
          }
      })
- }
  
+    } 
+ 
+  
+    
  
  
  

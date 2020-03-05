@@ -5,6 +5,7 @@ const app = express();
 app.use(bodyparser.urlencoded({extended:'false'})); 
 
 app.use('/users',usersRoute) ; 
+//app.use('/invited',invitedRoute)
 
 /*var users=['user 1','user 2' , 'user3', 'user 4'] ; 
 
