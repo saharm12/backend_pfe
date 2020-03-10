@@ -12,20 +12,21 @@ router.get('/',(req,res)=>{
 }); 
 
 //  permet au administrateur d'ajouter un jury
-router.post('/nom',juryController.nom)
+router.post('/addjurie',verifToken,juryController.addJurie) ; 
+router.put('/update/:id_jury',verifToken,juryController.updateColumn); 
 
-router.post('/prenom',juryController.prenom)
+//router.post('/prenom',juryController.prenom)
 
-router.post('/profil',juryController.profil)
+//router.post('/profil',juryController.profil)
 
 
 
 
 // //  permet au administrateur de modifier nom;prenom;profil jury
 
-router.put('/nom/:id',verifToken,juryController.changenom); 
-router.put('/prenom/:id',verifToken,juryController.changeprenom);
-router.put('/profil/:id',verifToken,juryController.changeprofil); 
+//router.put('/nom/:id',verifToken,juryController.changenom); 
+//router.put('/prenom/:id',verifToken,juryController.changeprenom);
+//router.put('/profil/:id',verifToken,juryController.changeprofil); 
 
 
 

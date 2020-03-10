@@ -1,55 +1,60 @@
-const express = require('express'); 
-const bodyparser = require('body-parser'); 
+const express = require('express');
+const bodyparser = require('body-parser');
+const jurieRoute = require('./router/juryRouter');
+const cors = require('cors');
 const usersRoute = require('./router/userRoutes'); // require permet de recuper une valeur exporter de fichier et l'utiliser ..
-const app = express(); 
-app.use(bodyparser.urlencoded({extended:'false'})); 
+const app = express();
+app.use(bodyparser.urlencoded({ extended: 'false' }));
+app.use(bodyparser.json());
+app.use(cors());
+app.use('/users', usersRoute);
+app.use('/jurie', jurieRoute)
+app.get('/', (req, res) => {
+        res.send("hello");
+    })
+    /*var users=['user 1','user 2' , 'user3', 'user 4'] ; 
 
-app.use('/users',usersRoute) ; 
-//app.use('/invited',invitedRoute)
+    app.get('/hello',(req,res)=>{
 
-/*var users=['user 1','user 2' , 'user3', 'user 4'] ; 
+        res.json({'message':'hello World '})
+    }); 
 
-app.get('/hello',(req,res)=>{
+    app.get('/users',(req,res)=>{
 
-    res.json({'message':'hello World '})
-}); 
-
-app.get('/users',(req,res)=>{
-
-    res.json({'users':users}); 
-}); 
-app.get('/users/:id',(req,res)=>{
-    const id = req.params.id ; 
-    res.json({'users':users[id]}); 
-    
-}); 
-
-
-app.post('/adduser',(req,res)=>{
-
-    const newUser = req.body.user ; 
-    users.push(newUser); 
-    res.json({'users':users}); 
-})
+        res.json({'users':users}); 
+    }); 
+    app.get('/users/:id',(req,res)=>{
+        const id = req.params.id ; 
+        res.json({'users':users[id]}); 
+        
+    }); 
 
 
-app.delete('/delete/:id',(req,res)=>{
+    app.post('/adduser',(req,res)=>{
 
-   const userId = req.params.id ; 
-    let newAarray = []; 
-   for(var i = 0; i<users.length;i++) 
-   {
-        if(i!=userId)
-        {
-            newAarray.push(users[i]); 
-        }
-   }
-   users=newAarray; 
-    res.json({'users':users}); 
-})*/
+        const newUser = req.body.user ; 
+        users.push(newUser); 
+        res.json({'users':users}); 
+    })
 
 
+    app.delete('/delete/:id',(req,res)=>{
 
-app.listen(3000,()=>{
-    console.log('server is running') ; 
-}); 
+       const userId = req.params.id ; 
+        let newAarray = []; 
+       for(var i = 0; i<users.length;i++) 
+       {
+            if(i!=userId)
+            {
+                newAarray.push(users[i]); 
+            }
+       }
+       users=newAarray; 
+        res.json({'users':users}); 
+    })*/
+
+
+
+app.listen(3000, () => {
+    console.log('server is running');
+});
