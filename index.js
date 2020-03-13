@@ -1,14 +1,23 @@
-const express = require('express');
+const express = require('express'); //Imports the express module
 const bodyparser = require('body-parser');
 const jurieRoute = require('./router/juryRouter');
+
 const cors = require('cors');
 const usersRoute = require('./router/userRoutes'); // require permet de recuper une valeur exporter de fichier et l'utiliser ..
-const app = express();
+const speakersRouter = require('./router/speakersRouter');
+const exposantRouter = require('./router/exposantRouter');
+
+const app = express(); //Creates an instance of the express module
 app.use(bodyparser.urlencoded({ extended: 'false' }));
 app.use(bodyparser.json());
-app.use(cors());
+app.use(cors()); //for all routes
 app.use('/users', usersRoute);
-app.use('/jurie', jurieRoute)
+app.use('/jurie', jurieRoute);
+app.use('/speaker', speakersRouter);
+app.use('/exposant', exposantRouter)
+
+
+
 app.get('/', (req, res) => {
         res.send("hello");
     })
