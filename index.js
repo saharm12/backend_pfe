@@ -6,6 +6,8 @@ const cors = require('cors');
 const usersRoute = require('./router/userRoutes'); // require permet de recuper une valeur exporter de fichier et l'utiliser ..
 const speakersRouter = require('./router/speakersRouter');
 const exposantRouter = require('./router/exposantRouter');
+const candidatRouter = require('./router/candidatRouter');
+const participantRouter = require('./router/participantRouter');
 
 const app = express(); //Creates an instance of the express module
 app.use(bodyparser.urlencoded({ extended: 'false' }));
@@ -14,7 +16,9 @@ app.use(cors()); //for all routes
 app.use('/users', usersRoute);
 app.use('/jurie', jurieRoute);
 app.use('/speaker', speakersRouter);
-app.use('/exposant', exposantRouter)
+app.use('/exposant', exposantRouter);
+app.use('/candidat', candidatRouter)
+app.use('/particpant', participantRouter)
 
 
 

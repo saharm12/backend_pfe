@@ -1,8 +1,8 @@
 const express = require('express');
-const exposantController = require('../controllers/exposantController');
+const candidatController = require('../controllers/candidatController');
 const verifToken = require('../config/verifToken');
 const router = express.Router();
 
 
-router.get('/getexposants', verifToken, exposantController.getexposants)
+router.get('/getcandidats', verifToken, candidatController.getcandidats)
 module.exports = router;
