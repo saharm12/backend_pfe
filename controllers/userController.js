@@ -23,7 +23,7 @@ module.exports.register = (req, res) => {
     firstname = req.body.firstname;
     psw = req.body.password;
     email = req.body.email;
-    type = req.body.type;
+    confirmermdp = req.body.confirmermdp;
     let pass = bcyrpt.hashSync(psw, 10);
     conn.query('SELECT * FROM user WHERE email = ?', [email], (err, rows) => {
 
@@ -34,7 +34,7 @@ module.exports.register = (req, res) => {
         } else {
 
             let pass = bcyrpt.hashSync(psw, 10);
-            conn.query('INSERT INTO `user`( `nom`, `prenom`, `email`, `mdp`, `type`) VALUES (?,?,?,?,?)', [name, firstname, email, pass, type], (err, rows) => {
+            conn.query('INSERT INTO `user`( `nom`, `prenom`, `email`, `mdp`, `confirmermdp`) VALUES (?,?,?,?,?)', [name, firstname, email, pass, confirmermdp], (err, rows) => {
 
                 if (err) {
                     console.log(err)

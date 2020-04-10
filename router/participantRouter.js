@@ -5,4 +5,8 @@ const router = express.Router();
 
 
 router.get('/getparticipants', verifToken, participantController.getparticipants)
+router.delete('/deleteparticipant/:id', verifToken, participantController.deleteparticipant)
+router.post('/AddPart', participantController.RegisterPart)
+
+
 module.exports = router;

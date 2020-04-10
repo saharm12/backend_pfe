@@ -9,6 +9,8 @@ const exposantRouter = require('./router/exposantRouter');
 const candidatRouter = require('./router/candidatRouter');
 const participantRouter = require('./router/participantRouter');
 
+
+
 const app = express(); //Creates an instance of the express module
 app.use(bodyparser.urlencoded({ extended: 'false' }));
 app.use(bodyparser.json());
@@ -17,8 +19,8 @@ app.use('/users', usersRoute);
 app.use('/jurie', jurieRoute);
 app.use('/speaker', speakersRouter);
 app.use('/exposant', exposantRouter);
-app.use('/candidat', candidatRouter)
-app.use('/particpant', participantRouter)
+app.use('/candidat', candidatRouter);
+app.use('/participant', participantRouter);
 
 
 
