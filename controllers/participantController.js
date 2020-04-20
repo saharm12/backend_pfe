@@ -45,7 +45,8 @@ module.exports.refuserparticipant = (req, res) => {
         }
     })
 }
-module.exports.RegisterPart = (req, res) => {
+
+module.exports.Addpart = (req, res) => {
     nom = req.body.nom;
     prenom = req.body.prenom;
     email = req.body.email;
@@ -58,7 +59,8 @@ module.exports.RegisterPart = (req, res) => {
     programme = req.body.programme;
     paiement = req.body.paiement;
     num_cheque = req.body.num_cheque;
-    conn.query('INSERT INTO `participant`( `nom_participant`, `prenom_participant`, `email_participant`, `adresse`, `code_postale`, raison_sociale, `code_TVA`, `ville`, `nbr-place-reserver`, `choix-programme`, `paiement`, `num-cheque`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', [nom, prenom, email, adresse, code_postale, raison_sociale, code_postale, TVA, Ville, reserver, programme, paiement, num_cheque], (err, rows) => {
+
+    conn.query('INSERT INTO `participant`(`nom_participant`, `prenom_participant`, `email_participant`, `adresse`, `code_postale`, `raison_sociale`, `code_TVA`, `ville`, `nbr-place-reserver`, `choix-programme`, `paiement`, `num_cheque`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', [nom, prenom, email, adresse, code_postale, raison_sociale, TVA, Ville, reserver, programme, paiement, num_cheque], (err, rows) => {
 
         if (err) {
             console.log(err)
@@ -69,4 +71,6 @@ module.exports.RegisterPart = (req, res) => {
             res.json({ 'result': rows });
         }
     })
+
+
 }
