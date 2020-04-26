@@ -7,9 +7,9 @@ module.exports.addspeaker = (req, res) => {
     nom_speakers = req.body.nom_speakers;
     prenom_speakers = req.body.prenom_speakers;
     profil_speakers = req.body.profil_speakers;
+    pays = req.body.pays;
 
-
-    conn.query('INSERT INTO `speakers`( `nom_speakers`, `prenom_speakers`, `profil_speakers``) VALUES (?,?,?)', [nom_speakers, prenom_speakers, profil_speakers], (err, rows) => {
+    conn.query('INSERT INTO `speakers`( `nom_speakers`, `prenom_speakers`, `profil_speakers`,`pays` ) VALUES (?,?,?,?)', [nom_speakers, prenom_speakers, profil_speakers, pays], (err, rows) => {
 
         if (err) {
             console.log(err)
@@ -68,6 +68,19 @@ module.exports.changeprofil = (req, res) => {
 
 }
 
+module.exports.getspeaker = (req, res) => {
+
+    conn.query('SELECT * FROM speakers ', (err, rows) => {
+
+        if (err) {
+            console.log(err)
+        } else {
+
+            res.json({ "speakers": rows });
+            console.log("resultat", res)
+        }
+    });
+}
 module.exports.getspeakerByid = (req, res) => {
     const id = req.params.id_speakers
     conn.query('SELECT * FROM speakers WHERE id_speakers = ?', [id_speakers], (err, rows) => {
@@ -77,6 +90,37 @@ module.exports.getspeakerByid = (req, res) => {
         } else {
 
             res.json({ "speakers": rows })
+        }
+    })
+}
+
+module.exports.SupprimerSpeakers = (req, res) => {
+    const id_speakers = req.params.id;
+
+    conn.query('DELETE FROM speakers  WHERE id_speakers = ?', [id_speakers], (err, rows) => {
+
+        if (err) {
+            console.log(err)
+        } else {
+            res.json({ 'result': rows })
+        }
+    });
+
+}
+
+module.exports.Update = (req, res) => {
+    console.log("update ", req.body.nom_speakers);
+    const id_speakers = req.params.id_speakers;
+    const nom_speakers = req.body.nom_speakers;
+    const prenom_speakers = req.body.prenom_speakers;
+    const profil_speakers = req.body.profil_speakers;
+    const pays = req.body.pays;
+    conn.query('UPDATE  speakers SET nom_speakers = ?, prenom_speakers = ?, profil_speakers = ?, pays = ?  WHERE id_speakers = ? ', [nom_speakers, prenom_speakers, profil_speakers, pays, id_speakers], (err, rows) => {
+
+        if (err) {
+            console.log(err)
+        } else {
+            res.json({ 'result': rows })
         }
     })
 }
