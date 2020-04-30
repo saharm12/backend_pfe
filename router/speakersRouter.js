@@ -19,7 +19,9 @@ router.delete('/DeleteSpeak/:id', verifToken, speakersController.SupprimerSpeake
 
 
 router.get('/Getsp', verifToken, speakersController.getspeaker);
-router.put('/GetNewUp/:id_speakers', verifToken, speakersController.Update);
+//router.put('/ModifierSpeakers/:id_speakers', verifToken, speakersController.ModifierSpeakers);
+
+router.put('/modifiers/:id_speakers', speakersController.upInfospeak);
 
 // //  permet au administrateur de modifier nom;prenom;profil speakers
 //router.put('/nom/:id', verifToken, speakersController.modifnom);

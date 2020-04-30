@@ -108,7 +108,7 @@ module.exports.SupprimerSpeakers = (req, res) => {
 
 }
 
-module.exports.Update = (req, res) => {
+module.exports.upInfospeak = (req, res) => {
     console.log("update ", req.body.nom_speakers);
     const id_speakers = req.params.id_speakers;
     const nom_speakers = req.body.nom_speakers;

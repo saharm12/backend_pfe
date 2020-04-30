@@ -8,7 +8,7 @@ const speakersRouter = require('./router/speakersRouter');
 const exposantRouter = require('./router/exposantRouter');
 const candidatRouter = require('./router/candidatRouter');
 const participantRouter = require('./router/participantRouter');
-
+const laureatsRouter = require('./router/laureatsRouter');
 
 
 const app = express(); //Creates an instance of the express module
@@ -21,7 +21,7 @@ app.use('/speaker', speakersRouter);
 app.use('/exposant', exposantRouter);
 app.use('/candidat', candidatRouter);
 app.use('/participant', participantRouter);
-
+app.use('/laureats', laureatsRouter);
 
 
 app.get('/', (req, res) => {
