@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 
 router.post('/ajouter', laureatsController.addLaureatsnew);
 
-router.get('/GetLau', verifToken, laureatsController.getlaureat);
+router.get('/GetLaureat', verifToken, laureatsController.getlaureat);
 
 
 module.exports = router;
