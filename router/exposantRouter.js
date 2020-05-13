@@ -8,6 +8,7 @@ router.get('/getexposants', verifToken, exposantController.getexposants)
 
 router.delete('/deletexposants/:id', verifToken, exposantController.deletexposants)
 router.post('/AddExpo', exposantController.addexpo)
+router.get('/:id', verifToken, exposantController.getexpoByid);
 
 
 

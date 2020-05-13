@@ -77,9 +77,22 @@ module.exports.acceptexposant = (req, res) => {
     })
 
 }
+module.exports.getexpoByid = (req, res) => {
+        const id = req.params.id
+        conn.query('SELECT * FROM exposant WHERE id_exposant = ?', [id], (err, rows) => {
 
-//module.exports.refuserexposant = (req, res) => {
-// const id = req.params.id;
+            if (err) {
+                console.log(err)
+            } else {
+
+                res.json({ "exposant": rows })
+            }
+        });
+
+
+    }
+    //module.exports.refuserexposant = (req, res) => {
+    // const id = req.params.id;
 
 // conn.query(' UPDATE exposant SET Etats = "Refuser" WHERE id_exposant = id ', [id], (err, rows) => { // les 2 cotes pour la requet SQL , le Tableau est pour les paramatres 
 
