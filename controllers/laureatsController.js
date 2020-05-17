@@ -5,10 +5,10 @@ const jwt = require('jsonwebtoken');
 
 
 module.exports.addLaureatsnew = (req, res) => {
-    image = req.body.image;
+    imageURL = req.body.imageURL;
 
 
-    conn.query('INSERT INTO `laureats`( `image` ) VALUES (?)', [image], (err, rows) => {
+    conn.query('INSERT INTO `laureats`( `image` ) VALUES (?)', [imageURL], (err, rows) => {
 
         if (err) {
             console.log(err)

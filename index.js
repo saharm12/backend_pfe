@@ -1,7 +1,8 @@
 const express = require('express'); //Imports the express module
 const bodyparser = require('body-parser');
 const jurieRoute = require('./router/juryRouter');
-
+const multer = require('multer');
+const path = require('path');
 const cors = require('cors');
 const usersRoute = require('./router/userRoutes'); // require permet de recuper une valeur exporter de fichier et l'utiliser ..
 const speakersRouter = require('./router/speakersRouter');
@@ -12,6 +13,24 @@ const laureatsRouter = require('./router/laureatsRouter');
 
 
 const app = express(); //Creates an instance of the express module
+/*app.use(function(req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});*/
 app.use(bodyparser.urlencoded({ extended: 'false' }));
 app.use(bodyparser.json());
 app.use(cors()); //for all routes
@@ -24,6 +43,7 @@ app.use('/participant', participantRouter);
 app.use('/laureats', laureatsRouter);
 
 
+app.use('/uploads', express.static(process.cwd() + '/uploads'))
 app.get('/', (req, res) => {
         res.send("hello");
     })
@@ -67,6 +87,18 @@ app.get('/', (req, res) => {
        users=newAarray; 
         res.json({'users':users}); 
     })*/
+
+
+/*app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));*/
+
+/*app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});*/
 
 
 
