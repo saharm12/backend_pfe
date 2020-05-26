@@ -58,3 +58,20 @@ module.exports.deletcandidat = (req, res) => {
         }
     })
 }
+module.exports.Addcandidat = (req, res) => {
+    fileURL = req.body.fileURL;
+
+    conn.query('INSERT INTO `candidat`(`dossier_candidature`) VALUES (?,)', [fileURL], (err, rows) => {
+
+        if (err) {
+            console.log(err)
+        } else
+
+        {
+            console.log('roows', rows);
+            res.json({ 'result': rows });
+        }
+    })
+
+
+}

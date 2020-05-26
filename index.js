@@ -10,7 +10,7 @@ const exposantRouter = require('./router/exposantRouter');
 const candidatRouter = require('./router/candidatRouter');
 const participantRouter = require('./router/participantRouter');
 const laureatsRouter = require('./router/laureatsRouter');
-
+const programmeRouter = require('./router/programmeRouter');
 
 const app = express(); //Creates an instance of the express module
 /*app.use(function(req, res, next) {
@@ -41,7 +41,7 @@ app.use('/exposant', exposantRouter);
 app.use('/candidat', candidatRouter);
 app.use('/participant', participantRouter);
 app.use('/laureats', laureatsRouter);
-
+app.use('/programme', programmeRouter);
 
 app.use('/uploads', express.static(process.cwd() + '/uploads'))
 app.get('/', (req, res) => {

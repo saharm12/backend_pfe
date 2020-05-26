@@ -27,15 +27,17 @@ const DIR = './uploads';
 let storage = multer.diskStorage({
     destination: (req, file, cb) => {
         try {
+            //test if file exist under uploads
             if (fs.existsSync('./uploads/' + file.originalname)) {
                 rimraf('./uploads/' + file.originalname, function() {
                     cb(null, DIR);
                 });
             } else {
-                console.log('test xxxxxxxxxxxxxxxxxxx')
+                //si file n'esxiste pas test if uploads exits
                 if (fs.existsSync('./uploads')) {
                     cb(null, DIR);
                 } else {
+                    //si uploads n'existe pas create it
                     mkdirp('./uploads', function(err) {
                         cb(null, DIR);
                     });
@@ -68,16 +70,12 @@ app.use(bodyParser.urlencoded({ extended: true }));*/
 
 
 router.post('/upload', verifToken, upload.single('photo'), function(req, res) {
-    console.log('*file', req.file);
     if (!req.file) {
-        console.log("Your request doesn’t have any file");
         return res.send({
             success: false
         });
 
     } else {
-        console.log('*********************************');
-        console.log('Your file has been received successfully');
         return res.send({
             success: true
         })
@@ -85,6 +83,5 @@ router.post('/upload', verifToken, upload.single('photo'), function(req, res) {
 });
 
 router.get('/GetLaureat', verifToken, laureatsController.getlaureat);
-
-
+router.delete('/deleteLau/:id', verifToken, laureatsController.Supplau);
 module.exports = router;

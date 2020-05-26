@@ -4,14 +4,14 @@ const jwt = require('jsonwebtoken');
 
 //Ajouter un jury 
 module.exports.RegisterJurie = (req, res) => {
-
+    imageURL = req.body.imageURL;
     nom_jury = req.body.nom_jury;
     prenom_jury = req.body.prenom_jury;
     profil_jury = req.body.profil_jury;
     pays = req.body.pays;
 
 
-    conn.query('INSERT INTO `membre_jury`( `nom_jury`, `prenom_jury`, `profil_jury`,`pays` ) VALUES (?,?,?,?)', [nom_jury, prenom_jury, profil_jury, pays], (err, rows) => {
+    conn.query('INSERT INTO `membre_jury`(`image`, `nom_jury`, `prenom_jury`, `profil_jury`,`pays` ) VALUES (?,?,?,?,?)', [imageURL, nom_jury, prenom_jury, profil_jury, pays], (err, rows) => {
 
         if (err) {
             console.log(err)

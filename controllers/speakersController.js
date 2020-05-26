@@ -4,12 +4,13 @@ const jwt = require('jsonwebtoken');
 
 //Ajouter un speakers 
 module.exports.addspeaker = (req, res) => {
+    imageURL = req.body.imageURL;
     nom_speakers = req.body.nom_speakers;
     prenom_speakers = req.body.prenom_speakers;
     profil_speakers = req.body.profil_speakers;
     pays = req.body.pays;
 
-    conn.query('INSERT INTO `speakers`( `nom_speakers`, `prenom_speakers`, `profil_speakers`,`pays` ) VALUES (?,?,?,?)', [nom_speakers, prenom_speakers, profil_speakers, pays], (err, rows) => {
+    conn.query('INSERT INTO `speakers`( `image`, `nom_speakers`, `prenom_speakers`, `profil_speakers`,`pays` ) VALUES (?,?,?,?,?)', [imageURL, nom_speakers, prenom_speakers, profil_speakers, pays], (err, rows) => {
 
         if (err) {
             console.log(err)
