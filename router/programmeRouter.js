@@ -6,5 +6,7 @@ const router = express.Router();
 
 router.get('/getprog', verifToken, programmeController.getprogramme);
 router.post('/ajouterProg', programmeController.addProg);
-
+router.get('/GetprogByid/:id', verifToken, programmeController.getprogByid);
+router.delete('/supprog/:id', verifToken, programmeController.supprog);
+router.put('/modif/:id_programme', programmeController.update);
 module.exports = router;

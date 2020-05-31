@@ -16,6 +16,18 @@ module.exports.getprogramme = (req, res) => {
         }
     });
 }
+module.exports.getprogByid = (req, res) => {
+    const id = req.params.id
+    conn.query('SELECT * FROM programme WHERE id_programme = ?', [id], (err, rows) => {
+
+        if (err) {
+            console.log(err)
+        } else {
+
+            res.json({ "programme": rows })
+        }
+    });
+}
 module.exports.addProg = (req, res) => {
 
     date_retenir = req.body.date_retenir;
@@ -30,7 +42,34 @@ module.exports.addProg = (req, res) => {
             console.log('roows', rows);
             res.json({ 'result': rows });
         }
+    });
+
+
+
+}
+module.exports.supprog = (req, res) => {
+    const id_programme = req.params.id;
+
+    conn.query('DELETE FROM programme  WHERE id_programme= ?', [id_programme], (err, rows) => {
+
+        if (err) {
+            console.log(err)
+        } else {
+            res.json({ 'result': rows })
+        }
+    });
+}
+module.exports.update = (req, res) => {
+    console.log("update ", req.body.date_retenir);
+    const id_programme = req.params.id_programme;
+    const date_retenir = req.body.date_retenir;
+    const details_programme = req.body.details_programme;
+    conn.query('UPDATE  programmes SET date_retenir = ?, details_programme = ?  WHERE id_programme = ? ', [date_retenir, details_programme, id_programme], (err, rows) => {
+
+        if (err) {
+            console.log(err)
+        } else {
+            res.json({ 'result': rows })
+        }
     })
-
-
 }

@@ -61,7 +61,7 @@ module.exports.deletcandidat = (req, res) => {
 module.exports.Addcandidat = (req, res) => {
     fileURL = req.body.fileURL;
 
-    conn.query('INSERT INTO `candidat`(`dossier_candidature`) VALUES (?,)', [fileURL], (err, rows) => {
+    conn.query('INSERT INTO `candidat` (`dossier_candidature`) VALUES (?)', [fileURL], (err, rows) => {
 
         if (err) {
             console.log(err)

@@ -60,7 +60,7 @@ module.exports.Addpart = (req, res) => {
     paiement = req.body.paiement;
     num_cheque = req.body.num_cheque;
 
-    conn.query('INSERT INTO `participant`(`nom_participant`, `prenom_participant`, `email_participant`, `adresse`, `code_postale`, `raison_sociale`, `code_TVA`, `ville`, `nbr-place-reserver`, `choix-programme`, `paiement`, `num_cheque`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', [nom, prenom, email, adresse, code_postale, raison_sociale, TVA, Ville, reserver, programme, paiement, num_cheque], (err, rows) => {
+    conn.query('INSERT INTO `participant`(`nom_participant`, `prenom_participant`, `email_participant`, `adresse`, `code_postale`, `raison_sociale`, `code_TVA`, `ville`, `nbr_place_reserver`, `choix_programme`, `paiement`, `num_cheque`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', [nom, prenom, email, adresse, code_postale, raison_sociale, TVA, Ville, reserver, programme, paiement, num_cheque], (err, rows) => {
 
         if (err) {
             console.log(err)
