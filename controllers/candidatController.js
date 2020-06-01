@@ -1,6 +1,6 @@
 const conn = require('../config/dbConn');
 const config = require('../config/config').secret;
-
+const emailCtrl = require('./emailController');
 
 module.exports.getcandidats = (req, res) => {
 
@@ -59,19 +59,40 @@ module.exports.deletcandidat = (req, res) => {
     })
 }
 module.exports.Addcandidat = (req, res) => {
-    fileURL = req.body.fileURL;
+    fileURL = req.file.path;
+    const ste = req.body.ste;
 
-    conn.query('INSERT INTO `candidat` (`dossier_candidature`) VALUES (?)', [fileURL], (err, rows) => {
+    console.log(ste);
+    console.log("My File URL ", fileURL);
+    conn.query('INSERT INTO `candidat`( `dossier_candidature`) VALUES (?)', [fileURL], (err, rows) => {
 
-        if (err) {
+        if (err) { ////
             console.log(err)
         } else
 
         {
             console.log('roows', rows);
             res.json({ 'result': rows });
+            let myEmail = {
+                'receiver': req.body.candidatEmail,
+                'subject': 'Success',
+                'emailText': 'Votre dsipostion de dossier est en cours de traitment .merci'
+            }
+            emailCtrl.sendEmail(myEmail);
         }
     })
 
 
+}
+
+module.exports.sendQrCode = (req, res) => {
+
+    let myEmail = {
+        'receiver': req.body.candidatEmail,
+        'userid': req.body.id,
+        'subject': 'Success',
+        'emailText': 'Votre dsipostion de dossier est en cours de traitment .merci',
+        'userInfo': req.body.info
+    }
+    emailCtrl.sendQrCode(myEmail);
 }

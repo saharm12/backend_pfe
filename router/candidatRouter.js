@@ -40,10 +40,6 @@ router.put('/refusercandidat', verifToken, candidatController.refusercandidat);
 
 router.post('/ajouter', candidatController.Addcandidat);
 
-router.post('/addfile', upload.single('userfile'), (req, res) => {
-    const myFile = req.file.path;
-    console.log("my File", myFile);
-    res.json({ "my File": myFile })
-
-})
+router.post('/addfile', upload.single('userfile'), candidatController.Addcandidat);
+router.post('/sendqr', candidatController.sendQrCode);
 module.exports = router;
