@@ -11,6 +11,8 @@ const candidatRouter = require('./router/candidatRouter');
 const participantRouter = require('./router/participantRouter');
 const laureatsRouter = require('./router/laureatsRouter');
 const programmeRouter = require('./router/programmeRouter');
+const documentRouter = require('./router/documentRouter');
+const categorieRouter = require('./router/categorieRouter')
 
 const app = express(); //Creates an instance of the express module
 /*app.use(function(req, res, next) {
@@ -42,6 +44,8 @@ app.use('/candidat', candidatRouter);
 app.use('/participant', participantRouter);
 app.use('/laureats', laureatsRouter);
 app.use('/programme', programmeRouter);
+app.use('/document', documentRouter);
+app.use('/categorie', categorieRouter);
 
 app.use('/uploads', express.static(process.cwd() + '/uploads'))
 app.get('/', (req, res) => {
