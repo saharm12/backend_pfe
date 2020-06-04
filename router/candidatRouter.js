@@ -25,9 +25,9 @@ const fileFilter = (req, file, cb) => {
 
 let upload = multer({
     storage: storage,
-    // limits: {
-    //     fileSize: 1024 * 1024 * 5,
-    // }, lpost l3adiya 
+    limits: {
+        fileSize: 1024 * 1024 * 50,
+    }
     //fileFilter: fileFilter, // juste etna7y el file filter w yemchi ettala3 elli et7éb 
 });
 
@@ -40,6 +40,7 @@ router.put('/refusercandidat', verifToken, candidatController.refusercandidat);
 
 router.post('/ajouter', candidatController.Addcandidat);
 
-router.post('/addfile', upload.single('userfile'), candidatController.Addcandidat);
+//router.post('/addfile', upload.single('userfile'), candidatController.Addcandidat);
+router.post('/addfiles', upload.fields([{ name: 'firstfile', maxCount: 1 }, { name: 'secondfile', maxCount: 1 }]), candidatController.Addcandidat);
 router.post('/sendqr', candidatController.sendQrCode);
 module.exports = router;

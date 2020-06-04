@@ -23,8 +23,9 @@ module.exports.register = (req, res) => {
     firstname = req.body.firstname;
     psw = req.body.password;
     email = req.body.email;
-    confirmermdp = req.body.confirmermdp;
+    //confirmermdp = req.body.confirmermdp;
     let pass = bcyrpt.hashSync(psw, 10);
+    let isAdmin = req.body.isAdmin;
     conn.query('SELECT * FROM user WHERE email = ?', [email], (err, rows) => {
 
         if (err) {
@@ -34,7 +35,7 @@ module.exports.register = (req, res) => {
         } else {
 
             let pass = bcyrpt.hashSync(psw, 10);
-            conn.query('INSERT INTO `user`( `nom`, `prenom`, `email`, `mdp`, `confirmermdp`) VALUES (?,?,?,?,?)', [name, firstname, email, pass, confirmermdp], (err, rows) => {
+            conn.query('INSERT INTO `user`( `nom`, `prenom`, `email`, `mdp`,`isAdmin`) VALUES (?,?,?,?,?)', [name, firstname, email, pass, isAdmin], (err, rows) => {
 
                 if (err) {
                     console.log(err)
@@ -64,7 +65,7 @@ module.exports.login = (req, res) => {
                 let token = jwt.sign({ id: rows[0].id_user }, config, {
                     expiresIn: 86400
                 });
-                res.json({ 'user': true, 'token': token, 'id': rows[0].id_user });
+                res.json({ 'user': true, 'token': token, 'id': rows[0].id_user, 'role': rows[0].isAdmin });
             } else {
                 res.json({ 'user': false });
             }

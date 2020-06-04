@@ -1,6 +1,13 @@
 const conn = require('../config/dbConn');
 const config = require('../config/config').secret;
 const emailCtrl = require('./emailController');
+const Pusher = require('pusher');
+const pusher = new Pusher({
+    appId: "1012934",
+    key: "ed4a857e8e6c3f7716b0",
+    secret: "45f29b84a409f7cee457",
+    cluster: "eu"
+})
 
 module.exports.getcandidats = (req, res) => {
 
@@ -59,7 +66,9 @@ module.exports.deletcandidat = (req, res) => {
     })
 }
 module.exports.Addcandidat = (req, res) => {
-    fileURL = req.file.path;
+    fileURL = req.files['firstfile'][0].path;
+    const secondfile = req.files['secondfile'][0].path;
+    console.log(secondfile);
     const ste = req.body.ste;
     const respon = req.body.respon;
     const adresse = req.body.adresse;
@@ -69,7 +78,7 @@ module.exports.Addcandidat = (req, res) => {
     const client = req.body.client;
     const categorie = req.body.categorie;
     const dossier_candidature = req.body.dossier_candidature;
-    autre_piece = req.file.autre_piece;
+    //autre_piece = req.file.autre_piece;
     const candidatEmail = req.body.candidatEmail;
 
     console.log(ste);
@@ -81,14 +90,18 @@ module.exports.Addcandidat = (req, res) => {
         } else
 
         {
+            pusher.trigger('candidat', 'inscription', { "message": ste + " à effetctuté sa inscription avec succées" });
             console.log('roows', rows);
-            res.json({ 'result': rows });
+            // res.json({ 'result': rows });
             let myEmail = {
                 'receiver': req.body.candidatEmail,
                 'subject': 'Success',
                 'emailText': 'Bonjour Mr/Mme votre candidature a bien été enregistrer  en vous informe que le frais de candidature 300dt(150dt/catégorie+150dt Diner Soirée[TVA 19%] , toute annulation ne serait acceptée qu’avant le 25 Novembre 2019, dans cas contraire il est impératif de payer tout le montant du BC) et  nous vous prions de bien vouloir remplir le bon de commande et l’envoyer par E-mail sur : Contact@digital-awards.org .Merci pour votre participation.   '
             }
             emailCtrl.sendEmail(myEmail);
+            res.json({
+                'msg': 'Email  a été envoyé '
+            })
         }
     })
 
@@ -105,4 +118,8 @@ module.exports.sendQrCode = (req, res) => {
         'userInfo': req.body.info
     }
     emailCtrl.sendQrCode(myEmail);
+    res.json({
+        'msg': 'QR code a été envoyé '
+    })
+
 }

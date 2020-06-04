@@ -1,0 +1,62 @@
+<div class="container">
+    <form  (ngSubmit)=" addjury()">
+        <div>
+            <label class="col-sm-2 col-form-label">Image</label>
+            <div class="col-sm-10">
+
+                <input name="image" type="file" >
+            </div>
+        </div>
+        <div>
+
+            <!-- <option *ngFor="let categorie of listecategorie ">{{categorie}}</option>-->
+
+        </div>
+        <!--  <div *ngIf="f.categorie.touched && f.categorie.invalid " class="alert alert-danger ">
+            <div *ngIf="f.categorie.errors.required ">Name is required.</div>
+        </div>-->
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nom : </label>
+            <div class="col-sm-10">
+
+                <input name="nom_jury"  type="text">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Prenom :</label>
+            <div class="col-sm-10">
+
+                <input name="prenom_jury"  type="text">
+            </div>
+
+
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Profil :</label>
+            <div class="col-sm-10">
+
+                <input name="profil_jury"  type="url" pattern="https?://.+">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Pays :</label>
+            <div class="col-sm-10">
+
+                <input name="pays_jury"  type="text">
+            </div>
+        </div>
+
+
+        <div class="form-group ">
+            <button class="btn btn-primary " [disabled]="!uploader.getNotUploadedItems().length ">Ajouter</button>
+        </div>
+    </form>
+</div>
+
+
+******************
+css :
+.col-form-label {
+    color: black;
+}
