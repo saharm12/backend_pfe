@@ -33,5 +33,6 @@ let upload = multer({
 
 router.get('/getdoc', verifToken, documentController.getdocument);
 router.post('/addfile', upload.single('userfile'), documentController.Adddocument);
+router.delete('/deletedoc/:id_fichier', verifToken, documentController.Suppdoc);
 
 module.exports = router;

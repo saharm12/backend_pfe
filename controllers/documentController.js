@@ -30,3 +30,15 @@ module.exports.Adddocument = (req, res) => {
         }
     })
 }
+module.exports.Suppdoc = (req, res) => {
+    const id_fichier = req.params.id_fichier;
+
+    conn.query('DELETE FROM document  WHERE id_fichier = ?', [id_fichier], (err, rows) => {
+
+        if (err) {
+            console.log(err)
+        } else {
+            res.json({ 'result': rows })
+        }
+    });
+}

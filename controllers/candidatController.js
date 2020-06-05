@@ -83,14 +83,14 @@ module.exports.Addcandidat = (req, res) => {
 
     console.log(ste);
     console.log("My File URL ", fileURL);
-    conn.query('INSERT INTO `candidat`( `nom_societe_agence`,`personne_responsable_candidature`,`adresse`,`code_postale`,`email`,`GSM`,site_web,`client_fournisseur`,`categorie`,`dossier_candidature`) VALUES (?,?,?,?,?,?,?,?,?,?)', [ste, respon, adresse, codepostale, candidatEmail, GSM, siteweb, client, categorie, fileURL], (err, rows) => {
+    conn.query('INSERT INTO `candidat`( `nom_societe_agence`,`personne_responsable_candidature`,`adresse`,`code_postale`,`email`,`GSM`,site_web,`client_fournisseur`,`categorie`,`dossier_candidature`,`autre_pieces`) VALUES (?,?,?,?,?,?,?,?,?,?,?)', [ste, respon, adresse, codepostale, candidatEmail, GSM, siteweb, client, categorie, fileURL, secondfile], (err, rows) => {
 
         if (err) { ////
             console.log(err)
         } else
 
         {
-            pusher.trigger('candidat', 'inscription', { "message": ste + " à effetctuté sa inscription avec succées" });
+            pusher.trigger('candidat', 'inscription', { "message": " Le candidat  " + ":" + respon + " à effetctuté sa inscription avec succées" });
             console.log('roows', rows);
             // res.json({ 'result': rows });
             let myEmail = {
@@ -114,7 +114,7 @@ module.exports.sendQrCode = (req, res) => {
         'receiver': req.body.candidatEmail,
         'userid': req.body.id,
         'subject': 'Success',
-        'emailText': 'Votre dsipostion de dossier est en cours de traitment .merci',
+        'emailText': 'Voici votre code QR  .Merci',
         'userInfo': req.body.info
     }
     emailCtrl.sendQrCode(myEmail);
