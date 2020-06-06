@@ -6,16 +6,11 @@ const emailCtrl = require('./emailController');
 module.exports.addsponsors = (req, res) => {
     imageURL = req.body.imageURL;
 
-
-
-
-
     conn.query('INSERT INTO `sponsors`( `image`) VALUES (?)', [imageURL], (err, rows) => {
 
         if (err) {
             console.log(err)
-        }
-        elses
+        } else
 
         {
             console.log('roows', rows);

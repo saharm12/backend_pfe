@@ -2,8 +2,26 @@ const express = require('express');
 const sponsorsController = require('../controllers/sponsorsController');
 const verifToken = require('../config/verifToken');
 const router = express.Router();
-const multer = require('multer');
+const multer = require('multer')
+const path = require('path');
+const fs = require('fs');
+var mkdirp = require('mkdirp');
+var rimraf = require("rimraf");
 
+
+
+
+// Lien Par defaut .. router permet de recuperer tous les speakers
+router.get('/', (req, res) => {
+
+
+
+
+});
+
+
+
+router.post('/ajouter', sponsorsController.addsponsors);
 const DIR = './uploads';
 
 let storage = multer.diskStorage({
@@ -37,6 +55,20 @@ let storage = multer.diskStorage({
 
 
 let upload = multer({ storage: storage });
+
+/*app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));*/
+
+/*router.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+    res.setHeader('Access-Control-Allow-Methods', 'POST');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});*/
+
+
+
 router.post('/upload', verifToken, upload.single('photo'), function(req, res) {
     if (!req.file) {
         return res.send({
@@ -49,7 +81,7 @@ router.post('/upload', verifToken, upload.single('photo'), function(req, res) {
         })
     }
 });
-router.get('/getsponsors', verifToken, sponsorsController.getsponsors);
+router.get('/getspons', verifToken, sponsorsController.getsponsors);
 router.delete('/deletesponsors/:id', verifToken, sponsorsController.suppsponsors);
-router.post('/ajouter', sponsorsController.addsponsors);
+//router.post('/addfile', upload.single('userfile'), sponsorsController.addsponsors);
 module.exports = router;
