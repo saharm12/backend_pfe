@@ -115,8 +115,10 @@ module.exports.upInfospeak = (req, res) => {
     const nom_speakers = req.body.nom_speakers;
     const prenom_speakers = req.body.prenom_speakers;
     const profil_speakers = req.body.profil_speakers;
+    fileURL = req.file.path;
+
     const pays = req.body.pays;
-    conn.query('UPDATE  speakers SET nom_speakers = ?, prenom_speakers = ?, profil_speakers = ?, pays = ?  WHERE id_speakers = ? ', [nom_speakers, prenom_speakers, profil_speakers, pays, id_speakers], (err, rows) => {
+    conn.query('UPDATE  speakers SET image = ?, nom_speakers = ?, prenom_speakers = ?, profil_speakers = ?, pays = ?  WHERE id_speakers = ? ', [fileURL, nom_speakers, prenom_speakers, profil_speakers, pays, id_speakers], (err, rows) => {
 
         if (err) {
             console.log(err)
