@@ -111,14 +111,17 @@ module.exports.SupprimerSpeakers = (req, res) => {
 
 module.exports.upInfospeak = (req, res) => {
     console.log("update ", req.body.nom_speakers);
+    const imageURL = req.body.imageURL;
     const id_speakers = req.params.id_speakers;
     const nom_speakers = req.body.nom_speakers;
     const prenom_speakers = req.body.prenom_speakers;
     const profil_speakers = req.body.profil_speakers;
-    fileURL = req.file.path;
 
     const pays = req.body.pays;
-    conn.query('UPDATE  speakers SET image = ?, nom_speakers = ?, prenom_speakers = ?, profil_speakers = ?, pays = ?  WHERE id_speakers = ? ', [fileURL, nom_speakers, prenom_speakers, profil_speakers, pays, id_speakers], (err, rows) => {
+
+    /*fileURL = req.file.path;
+    console.log("file url", fileURL)*/
+    conn.query('UPDATE  speakers SET image = ?, nom_speakers = ?, prenom_speakers = ?, profil_speakers = ?, pays = ?  WHERE id_speakers = ? ', [imageURL, nom_speakers, prenom_speakers, profil_speakers, pays, id_speakers], (err, rows) => {
 
         if (err) {
             console.log(err)
