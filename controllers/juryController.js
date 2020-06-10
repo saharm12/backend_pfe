@@ -50,12 +50,13 @@ module.exports.Suppjury = (req, res) => {
 }
 module.exports.UpdateJury = (req, res) => {
     console.log("update ", req.body.nom_jury);
+    const imageURL = req.body.imageURL;
     const id_jury = req.params.id_jury;
     const nom_jury = req.body.nom_jury;
     const prenom_jury = req.body.prenom_jury;
     const profil_jury = req.body.profil_jury;
     const pays = req.body.pays;
-    conn.query('UPDATE membre_jury SET nom_jury = ?, prenom_jury = ?, profil_jury = ?, pays = ?  WHERE id_jury = ? ', [nom_jury, prenom_jury, profil_jury, pays, id_jury], (err, rows) => {
+    conn.query('UPDATE membre_jury SET image = ?, nom_jury = ?, prenom_jury = ?, profil_jury = ?, pays = ?  WHERE id_jury = ? ', [imageURL, nom_jury, prenom_jury, profil_jury, pays, id_jury], (err, rows) => {
 
         if (err) {
             console.log(err)

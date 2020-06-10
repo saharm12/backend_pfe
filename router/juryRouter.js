@@ -8,11 +8,7 @@ const fs = require('fs');
 var mkdirp = require('mkdirp');
 var rimraf = require("rimraf");
 
-router.post('/Addjurie', juryController.RegisterJurie);
 
-router.get('/GetJuries', verifToken, juryController.ListJury);
-router.delete('/DeleteJuries/:id', verifToken, juryController.Suppjury);
-router.put('/UpdateMembre/:id_jury', juryController.UpdateJury);
 router.get('/', (req, res) => {
 
 
@@ -80,7 +76,11 @@ router.post('/upload', verifToken, upload.single('photo'), function(req, res) {
 
 
 
+router.post('/Addjurie', juryController.RegisterJurie);
 
+router.get('/GetJuries', verifToken, juryController.ListJury);
+router.delete('/DeleteJuries/:id', verifToken, juryController.Suppjury);
+router.put('/modifiersjur/:id_jury', upload.single('userfile'), juryController.UpdateJury);
 
 
 module.exports = router;
