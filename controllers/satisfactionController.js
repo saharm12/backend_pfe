@@ -29,7 +29,7 @@ module.exports.addSatisfaction = (req, res) => {
 
 module.exports.getAllSatisfactions = (req, res) => {
 
-    const sql = "SELECT * FROM enquete_satisfaction,user WHERE enquete_satisfaction.id_user=user.id_user ";
+    const sql = "SELECT * FROM enquete_satisfaction ";
     conn.query(sql, [], (err, result) => {
 
         if (err) {
