@@ -61,8 +61,8 @@ module.exports.supprog = (req, res) => {
 }
 module.exports.update = (req, res) => {
     const id_programme = req.params.id_programme;
-
-    const details_programme = req.body.details_programme;
+    console.log("bodyyy : ", req.body)
+    const details_programme = req.body.detail;
     conn.query('UPDATE  programme SET  details_programme = ?  WHERE id_programme = ? ', [details_programme, id_programme], (err, rows) => {
 
         if (err) {

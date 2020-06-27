@@ -80,7 +80,6 @@ module.exports.Addcandidat = (req, res) => {
     const dossier_candidature = req.body.dossier_candidature;
     //autre_piece = req.file.autre_piece;
     const candidatEmail = req.body.candidatEmail;
-
     console.log(ste);
     console.log("My File URL ", fileURL);
     conn.query('INSERT INTO `candidat`( `nom_societe_agence`,`personne_responsable_candidature`,`adresse`,`code_postale`,`email`,`GSM`,site_web,`client_fournisseur`,`categorie`,`dossier_candidature`,`autre_pieces`) VALUES (?,?,?,?,?,?,?,?,?,?,?)', [ste, respon, adresse, codepostale, candidatEmail, GSM, siteweb, client, categorie, fileURL, secondfile], (err, rows) => {

@@ -2,6 +2,50 @@ const conn = require('../config/dbConn');
 const config = require('../config/config').secret;
 const jwt = require('jsonwebtoken');
 
+// Check if there is a jury with the same linkedIn in the database
+
+module.exports.CheckLinkedInNotTaken = (req, res) => {
+    const juryId = req.body.id_jury;
+    console.log("juryId", juryId)
+
+    conn.query('Select * FROM membre_jury  WHERE profil_jury = ?', [req.body.profil_jury], (err, jury) => {
+        console.log("jury ddd", jury.length)
+        if (err) {
+            console.log("err")
+            res.json({
+                linkedInNotTaken: true
+            })
+        } else {
+            // No jury with the same linkedIn in the database
+            if (jury.length === 0) {
+                return res.json({
+                    linkedInNotTaken: true
+                });
+            }
+
+            // Validate the 'edit jury' form
+            if (juryId) {
+                if (juryId === jury.id_jury.toString()) {
+                    return res.json({
+                        linkedInNotTaken: true
+                    })
+                } else {
+                    return res.json({
+                        linkedInNotTaken: false
+                    })
+                }
+            }
+
+            // Validate the 'create jury' form
+            else {
+                res.json({
+                    linkedInNotTaken: false
+                })
+            }
+        }
+    })
+}
+
 //Ajouter un jury 
 module.exports.RegisterJurie = (req, res) => {
     imageURL = req.body.imageURL;

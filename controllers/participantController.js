@@ -2,6 +2,8 @@ const bcyrpt = require('bcryptjs');
 const conn = require('../config/dbConn');
 const config = require('../config/config').secret;
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+
 
 const emailCtrl = require('./emailController');
 
@@ -56,7 +58,64 @@ module.exports.refuserparticipant = (req, res) => {
         }
     })
 }
+module.exports.AddAttes = (req, res) => {
+    const id = req.params.id
+    const email = req.params.email;
+    const file = req.file
+    if (!file) {
+        const error = new Error('Please upload a file')
+        error.httpStatusCode = 400
+        return next(error)
+    }
 
+    console.log({
+
+        to: email, // list of receivers
+        subject: "Attestation", // Subject line
+        text: "Attestation de presence", // plain text body
+
+    })
+
+    console.log("UPDATE  `participant` SET `attestation`='" +
+        file.originalname + "'  WHERE id =" + id)
+    conn.query("UPDATE  `participant` SET `attestation`='" +
+        file.originalname + "'  WHERE id_participant =" + id, [], (err, rows) => {
+            console.log("file")
+
+            // if (err) {
+            //     console.log(err)
+            // } else {
+
+            // emailCtrl.sendEmail({
+            //  to: "moussa.sahar0@gmail.com", // list of receivers
+            //   from: "moussa.sahar0@gmail.com",
+            //  subject: 'Attestation', // Subject line
+            //  text: 'Attestation de presence', // plain text body
+
+            // })
+            // }
+            let myEmail = {
+                'receiver': req.params.email,
+                'subject': 'Success',
+                'emailText': 'Attestation de presence',
+                'filename': file.originalname
+            }
+            emailCtrl.sendEmail(myEmail);
+            res.json({
+                'msg': 'Email  a été envoyé '
+            })
+
+        })
+
+
+
+
+
+    // res.send(file)
+
+
+
+}
 module.exports.Addpart = (req, res) => {
     const nom = req.body.nom;
     const prenom = req.body.prenom;
@@ -70,8 +129,8 @@ module.exports.Addpart = (req, res) => {
     const programme = req.body.programme;
     const paiement = req.body.paiement;
     const num_cheque = req.body.num_cheque;
-
-    conn.query('INSERT INTO `participant`(`nom_participant`, `prenom_participant`, `email_participant`, `adresse`, `code_postale`, `raison_sociale`, `code_TVA`, `ville`, `nbr_place_reserver`, `choix_programme`, `paiement`, `num_cheque`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', [nom, prenom, email, adresse, code_postale, raison_sociale, TVA, Ville, reserver, programme, paiement, num_cheque], (err, rows) => {
+    const type_participant = req.body.type_participant
+    conn.query('INSERT INTO `participant`(`nom_participant`, `prenom_participant`, `email_participant`, `adresse`, `code_postale`, `raison_sociale`, `code_TVA`, `ville`, `nbr_place_reserver`, `choix_programme`,  `type_participant`, `paiement`, `num_cheque`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)', [nom, prenom, email, adresse, code_postale, raison_sociale, TVA, Ville, reserver, programme, type_participant, paiement, num_cheque], (err, rows) => {
 
         if (err) {
             console.log(err)

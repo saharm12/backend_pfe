@@ -12,12 +12,16 @@
  });
 
  module.exports.sendEmail = async(data) => {
+
+     console.log("data of email ", data)
      let info = await transporter.sendMail({
          from: 'moussa.sahar0@gmail.com', // sender address
          to: data.receiver, // list of receivers
          subject: data.subject, // Subject line
          text: data.emailText, // plain text body
-
+         attachments: [{
+             path: __dirname + '/pdf/' + data.filename
+         }]
      });
      console.log(info);
  }
@@ -27,7 +31,7 @@
      qrImage.pipe(require('fs').createWriteStream(__dirname + '/qrcodes/' + data.receiver + "_" + data.userid + '.png'));
      var svg_string = qrcode.imageSync(data.userInfo, { type: 'png' });
      let info = await transporter.sendMail({
-         from: 'moussasiwar23@gmail.com', // sender address
+         from: 'moussa.sahar0@gmail.com', // sender address
          to: data.receiver, // list of receivers
          subject: data.subject, // Subject line
          text: data.emailText,

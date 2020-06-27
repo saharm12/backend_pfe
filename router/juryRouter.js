@@ -81,6 +81,6 @@ router.post('/Addjurie', juryController.RegisterJurie);
 router.get('/GetJuries', verifToken, juryController.ListJury);
 router.delete('/DeleteJuries/:id', verifToken, juryController.Suppjury);
 router.put('/modifiersjur/:id_jury', upload.single('userfile'), juryController.UpdateJury);
-
+router.post('/checkLinkedInNotTaken', juryController.CheckLinkedInNotTaken);
 
 module.exports = router;
