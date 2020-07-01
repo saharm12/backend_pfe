@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 // Check if there is a jury with the same linkedIn in the database
 
 module.exports.CheckLinkedInNotTaken = (req, res) => {
-    const juryId = req.body.id_jury;
+    const juryId = req.params.id_jury;
     console.log("juryId", juryId)
 
     conn.query('Select * FROM membre_jury  WHERE profil_jury = ?', [req.body.profil_jury], (err, jury) => {
@@ -25,7 +25,8 @@ module.exports.CheckLinkedInNotTaken = (req, res) => {
 
             // Validate the 'edit jury' form
             if (juryId) {
-                if (juryId === jury.id_jury.toString()) {
+                console.log("fffffffffffff", jury)
+                if (juryId === jury[0].id_jury.toString()) {
                     return res.json({
                         linkedInNotTaken: true
                     })

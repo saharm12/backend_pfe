@@ -100,7 +100,7 @@ module.exports.AddAttes = (req, res) => {
                 'emailText': 'Attestation de presence',
                 'filename': file.originalname
             }
-            emailCtrl.sendEmail(myEmail);
+            emailCtrl.sendAttEmail(myEmail);
             res.json({
                 'msg': 'Email  a été envoyé '
             })
@@ -171,4 +171,46 @@ module.exports.sendQrCode = (req, res) => {
         'msg': 'QR code a été envoyé '
     })
 
+
+}
+module.exports.CheckEmailNotTaken = (req, res) => {
+    const participantId = req.body.id_participant;
+    console.log("participantId", participantId)
+
+    conn.query('Select * FROM participant  WHERE email_participant = ?', [req.body.email_participant], (err, participant) => {
+        console.log("participant ddd", participant.length)
+        if (err) {
+            console.log("err")
+            res.json({
+                emailNotTaken: true
+            })
+        } else {
+            // No jury with the same linkedIn in the database
+            if (participant.length === 0) {
+                return res.json({
+                    emailNotTaken: true
+                });
+            }
+
+            // Validate the 'edit jury' form
+            if (participantId) {
+                if (participantId === participant.id_participant.toString()) {
+                    return res.json({
+                        emailNotTaken: true
+                    })
+                } else {
+                    return res.json({
+                        emailNotTaken: false
+                    })
+                }
+            }
+
+            // Validate the 'create jury' form
+            else {
+                res.json({
+                    emailNotTaken: false
+                })
+            }
+        }
+    })
 }

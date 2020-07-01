@@ -115,3 +115,45 @@ module.exports.changepassword = (req, res) => {
     })
 
 }
+
+module.exports.checkEmailNotTaken = (req, res) => {
+    const userId = req.body.id_user;
+    console.log("userId", userId)
+
+    conn.query('Select * FROM user  WHERE  email = ?', [req.body.email], (err, user) => {
+        console.log("user ddd", user.length)
+        if (err) {
+            console.log("err")
+            res.json({
+                emailNotTaken: true
+            })
+        } else {
+            // No jury with the same linkedIn in the database
+            if (user.length === 0) {
+                return res.json({
+                    emailNotTaken: true
+                });
+            }
+
+            // Validate the 'edit jury' form
+            if (userId) {
+                if (userId === user.id_user.toString()) {
+                    return res.json({
+                        emailNotTaken: true
+                    })
+                } else {
+                    return res.json({
+                        emailNotTaken: false
+                    })
+                }
+            }
+
+            // Validate the 'create jury' form
+            else {
+                res.json({
+                    emailNotTaken: false
+                })
+            }
+        }
+    })
+}

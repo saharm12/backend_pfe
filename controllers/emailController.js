@@ -19,6 +19,19 @@
          to: data.receiver, // list of receivers
          subject: data.subject, // Subject line
          text: data.emailText, // plain text body
+
+     });
+     console.log(info);
+
+ }
+ module.exports.sendAttEmail = async(data) => {
+
+     console.log("data of email ", data)
+     let info = await transporter.sendMail({
+         from: 'moussa.sahar0@gmail.com', // sender address
+         to: data.receiver, // list of receivers
+         subject: data.subject, // Subject line
+         text: data.emailText, // plain text body
          attachments: [{
              path: __dirname + '/pdf/' + data.filename
          }]

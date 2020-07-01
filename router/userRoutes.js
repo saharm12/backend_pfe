@@ -28,6 +28,5 @@ router.put('/lastname/:id', verifToken, userController.changeLastName);
 
 // Permet à l'utilisateur de modifier son mot de passe  
 router.put('/password/:id', verifToken, userController.changepassword);
-
-
+router.post('/checkEmailNotTaken', userController.checkEmailNotTaken)
 module.exports = router;
