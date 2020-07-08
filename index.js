@@ -12,7 +12,8 @@ const participantRouter = require('./router/participantRouter');
 const laureatsRouter = require('./router/laureatsRouter');
 const programmeRouter = require('./router/programmeRouter');
 const documentRouter = require('./router/documentRouter');
-const sponsorsRouter = require('./router/sponsorsRouter')
+const sponsorsRouter = require('./router/sponsorsRouter');
+const partenaireRouter = require('./router/partenaireRouter');
 const satisfactionRouter = require('./router/satisfactionRouter');
 const app = express(); //Creates an instance of the express module
 const server = require('http').createServer(app);
@@ -49,6 +50,7 @@ app.use('/laureats', laureatsRouter);
 app.use('/programme', programmeRouter);
 app.use('/document', documentRouter);
 app.use('/sponsors', sponsorsRouter);
+app.use('/partenaire', partenaireRouter);
 app.use('/satisfaction', satisfactionRouter);
 
 app.use('/uploads', express.static(process.cwd() + '/uploads'))

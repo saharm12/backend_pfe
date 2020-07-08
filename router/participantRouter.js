@@ -23,7 +23,8 @@ router.post('/Register', participantController.Addpart);
 router.post('/sendqr', participantController.sendQrCode);
 //router.post('/sendAtt', participantController.SendAtt);
 router.post('/AddAttestation/:id/:email', upload.single('image'), participantController.AddAttes)
+router.post('/Adddoc/:id/:email', upload.single('image'), participantController.Adddoc)
 router.post('/checkemailNotTaken', participantController.CheckEmailNotTaken);
-
+router.get('/getcountpart', participantController.getcountparticipants);
 
 module.exports = router;

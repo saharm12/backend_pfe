@@ -115,6 +115,17 @@ module.exports.getexpoByid = (req, res) => {
 }
 module.exports.sendQrCode = (req, res) => {
 
+    console.log("sql : ", 'UPDATE exposant SET qrcode = 1  WHERE id_exposant=' + req.body.id)
+    conn.query('UPDATE exposant SET qrcode = 1  WHERE id_exposant=' + req.body.id, (err, rows) => { // les 2 cotes pour la requet SQL , le Tableau est pour les paramatres 
+
+        if (err) {
+            console.log(err)
+        } else {
+            // res.json({ 'participant': rows });
+
+        }
+    })
+
     let myEmail = {
         'receiver': req.body.Email,
         'userid': req.body.id,

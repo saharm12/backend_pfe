@@ -109,6 +109,17 @@ module.exports.Addcandidat = (req, res) => {
 
 module.exports.sendQrCode = (req, res) => {
 
+    console.log("sql : ", 'UPDATE candidat SET qrcode = 1  WHERE id_candidat=' + req.body.id)
+    conn.query('UPDATE candidat SET qrcode = 1  WHERE id_candidat=' + req.body.id, (err, rows) => { // les 2 cotes pour la requet SQL , le Tableau est pour les paramatres 
+
+        if (err) {
+            console.log(err)
+        } else {
+            // res.json({ 'participant': rows });
+
+        }
+    })
+
     let myEmail = {
         'receiver': req.body.candidatEmail,
         'userid': req.body.id,
