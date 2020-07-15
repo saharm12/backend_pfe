@@ -138,6 +138,131 @@ module.exports.sendQrCode = (req, res) => {
         'msg': 'QR code a été envoyé '
     })
 }
+module.exports.CheckEmailNotTaken = (req, res) => {
+    const exposantId = req.body.id_exposant;
+    console.log("exposantId", exposantId)
+
+    conn.query('Select * FROM exposant  WHERE email_exposant = ?', [req.body.email_exposant], (err, exposant) => {
+        console.log("exposant ddd", exposant.length)
+        if (err) {
+            console.log("err")
+            res.json({
+                emailNotTaken: true
+            })
+        } else {
+            // No jury with the same linkedIn in the database
+            if (exposant.length === 0) {
+                return res.json({
+                    emailNotTaken: true
+                });
+            }
+
+            // Validate the 'edit jury' form
+            if (exposantId) {
+                if (exposantId === exposant.id_exposant.toString()) {
+                    return res.json({
+                        emailNotTaken: true
+                    })
+                } else {
+                    return res.json({
+                        emailNotTaken: false
+                    })
+                }
+            }
+
+            // Validate the 'create jury' form
+            else {
+                res.json({
+                    emailNotTaken: false
+                })
+            }
+        }
+    })
+}
+
+module.exports.CheckTelNotTaken = (req, res) => {
+    const exposantId = req.body.id_exposant;
+    console.log("exposantId", exposantId)
+
+    conn.query('Select * FROM exposant  WHERE telephone = ?', [req.body.telephone], (err, exposant) => {
+        console.log("exposant ddd", exposant.length)
+        if (err) {
+            console.log("err")
+            res.json({
+                telNotTaken: true
+            })
+        } else {
+            // No jury with the same linkedIn in the database
+            if (exposant.length === 0) {
+                return res.json({
+                    telNotTaken: true
+                });
+            }
+
+            // Validate the 'edit jury' form
+            if (exposantId) {
+                if (exposantId === exposant.id_exposant.toString()) {
+                    return res.json({
+                        telNotTaken: true
+                    })
+                } else {
+                    return res.json({
+                        telNotTaken: false
+                    })
+                }
+            }
+
+            // Validate the 'create jury' form
+            else {
+                res.json({
+                    telNotTaken: false
+                })
+            }
+        }
+    })
+}
+
+module.exports.CheckmobileNotTaken = (req, res) => {
+    const exposantId = req.body.id_exposant;
+    console.log("exposantId", exposantId)
+
+    conn.query('Select * FROM exposant  WHERE Mobile = ?', [req.body.mobile], (err, exposant) => {
+        console.log("exposant ddd", exposant.length)
+        if (err) {
+            console.log("err")
+            res.json({
+                mobileNotTaken: true
+            })
+        } else {
+            // No jury with the same linkedIn in the database
+            if (exposant.length === 0) {
+                return res.json({
+                    mobileNotTaken: true
+                });
+            }
+
+            // Validate the 'edit jury' form
+            if (exposantId) {
+                if (exposantId === exposant.id_exposant.toString()) {
+                    return res.json({
+                        mobileNotTaken: true
+                    })
+                } else {
+                    return res.json({
+                        mobileNotTaken: false
+                    })
+                }
+            }
+
+            // Validate the 'create jury' form
+            else {
+                res.json({
+                    mobileNotTaken: false
+                })
+            }
+        }
+    })
+}
 
 //module.exports.refuserexposant = (req, res) => {
 // const id = req.params.id;

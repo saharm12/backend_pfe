@@ -130,3 +130,46 @@ module.exports.upInfospeak = (req, res) => {
         }
     })
 }
+
+module.exports.CheckLinkedInNotTaken = (req, res) => {
+    const speakerId = req.params.id_speakers;
+    console.log("spekaerId", speakerId)
+
+    conn.query('Select * FROM speakers  WHERE profil_speakers = ?', [req.body.profil_speakers], (err, speakers) => {
+        console.log("speaker ddd", speakers.length)
+        if (err) {
+            console.log("err")
+            res.json({
+                linkedInNotTaken: true
+            })
+        } else {
+            // No jury with the same linkedIn in the database
+            if (speakers.length === 0) {
+                return res.json({
+                    linkedInNotTaken: true
+                });
+            }
+
+            // Validate the 'edit jury' form
+            if (speakerId) {
+                console.log("fffffffffffff", speakers)
+                if (speakerId === speakers[0].id_speakers.toString()) {
+                    return res.json({
+                        linkedInNotTaken: true
+                    })
+                } else {
+                    return res.json({
+                        linkedInNotTaken: false
+                    })
+                }
+            }
+
+            // Validate the 'create jury' form
+            else {
+                res.json({
+                    linkedInNotTaken: false
+                })
+            }
+        }
+    })
+}

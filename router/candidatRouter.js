@@ -43,4 +43,9 @@ router.post('/ajouter', candidatController.Addcandidat);
 //router.post('/addfile', upload.single('userfile'), candidatController.Addcandidat);
 router.post('/addfiles', upload.fields([{ name: 'firstfile', maxCount: 1 }, { name: 'secondfile', maxCount: 1 }]), candidatController.Addcandidat);
 router.post('/sendqr', candidatController.sendQrCode);
+router.post('/checkemailNotTaken', candidatController.CheckEmailNotTaken);
+router.post('/CheckGSMNotTaken', candidatController.CheckGSMNotTaken);
+
+
+
 module.exports = router;

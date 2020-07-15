@@ -56,19 +56,24 @@ module.exports.login = (req, res) => {
     const email = req.body.email;
     const mdp = req.body.mdp;
     conn.query('SELECT * FROM user WHERE email = ? ', [email], (err, rows) => {
-
+        console.log("test ddd", rows.length)
         if (err) {
             console.log(err)
         } else {
-            let value = bcyrpt.compareSync(mdp, rows[0].mdp)
-            if (value) {
-                let token = jwt.sign({ id: rows[0].id_user }, config, {
-                    expiresIn: 86400
-                });
-                res.json({ 'user': true, 'token': token, 'id': rows[0].id_user, 'role': rows[0].isAdmin });
-            } else {
+            if (rows.length == 0) {
                 res.json({ 'user': false });
+            } else {
+                let value = bcyrpt.compareSync(mdp, rows[0].mdp)
+                if (value) {
+                    let token = jwt.sign({ id: rows[0].id_user }, config, {
+                        expiresIn: 86400
+                    });
+                    res.json({ 'user': true, 'token': token, 'id': rows[0].id_user, 'role': rows[0].isAdmin });
+                } else {
+                    res.json({ 'user': false });
+                }
             }
+
         }
     })
 }

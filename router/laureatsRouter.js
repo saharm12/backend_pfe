@@ -21,7 +21,6 @@ router.get('/', (req, res) => {
 
 
 
-router.post('/ajouter', laureatsController.addLaureatsnew);
 const DIR = './uploads';
 
 let storage = multer.diskStorage({
@@ -81,6 +80,7 @@ router.post('/upload', verifToken, upload.single('photo'), function(req, res) {
         })
     }
 });
+router.post('/ajouter', laureatsController.addLaureatsnew);
 
 router.get('/GetLaureat', verifToken, laureatsController.getlaureat);
 router.delete('/deleteLau/:id', verifToken, laureatsController.Supplau);

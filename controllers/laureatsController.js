@@ -9,8 +9,6 @@ module.exports.addLaureatsnew = (req, res) => {
     categorie = req.body.categorie;
 
 
-
-
     conn.query('INSERT INTO `laureats`( `image`,`categorie`) VALUES (?,?)', [imageURL, categorie], (err, rows) => {
 
         if (err) {

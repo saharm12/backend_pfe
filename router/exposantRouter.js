@@ -10,6 +10,9 @@ router.delete('/deletexposants/:id', verifToken, exposantController.deletexposan
 router.post('/AddExpo', exposantController.addexpo)
 router.get('/:id', verifToken, exposantController.getexpoByid);
 router.post('/sendqr', exposantController.sendQrCode);
+router.post('/checkemailNotTaken', exposantController.CheckEmailNotTaken);
+router.post('/checktelNotTaken', exposantController.CheckTelNotTaken);
+router.post('/checkmobileNotTaken', exposantController.CheckmobileNotTaken);
 
 
 

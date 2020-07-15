@@ -69,7 +69,9 @@ router.post('/upload', verifToken, upload.single('photo'), function(req, res) {
 
 router.delete('/DeleteSpeak/:id', verifToken, speakersController.SupprimerSpeakers);
 
+router.post('/checkLinkedInNotTaken', speakersController.CheckLinkedInNotTaken);
 
+router.post('/CheckputLinkedInNotTaken/:id_speakers', speakersController.CheckLinkedInNotTaken);
 
 router.get('/Getsp', verifToken, speakersController.getspeaker);
 router.put('/modifiers/:id_speakers', upload.single('userfile'), speakersController.upInfospeak);

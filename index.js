@@ -17,6 +17,7 @@ const partenaireRouter = require('./router/partenaireRouter');
 const satisfactionRouter = require('./router/satisfactionRouter');
 const app = express(); //Creates an instance of the express module
 const server = require('http').createServer(app);
+
 const io = require('socket.io')(server);
 /*app.use(function(req, res, next) {
 
@@ -57,6 +58,7 @@ app.use('/uploads', express.static(process.cwd() + '/uploads'))
 app.get('/', (req, res) => {
     res.send("hello");
 });
+
 io.on('connection', (socket) => {
 
     socket.on('disconnect', function() {

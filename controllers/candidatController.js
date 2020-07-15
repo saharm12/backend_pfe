@@ -133,3 +133,86 @@ module.exports.sendQrCode = (req, res) => {
     })
 
 }
+module.exports.CheckEmailNotTaken = (req, res) => {
+    const candidatId = req.body.id_candidat;
+    console.log("candidatId", candidatId)
+
+    conn.query('Select * FROM candidat  WHERE email = ?', [req.body.email], (err, candidat) => {
+        console.log("candidat ddd", candidat.length)
+        if (err) {
+            console.log("err")
+            res.json({
+                emailNotTaken: true
+            })
+        } else {
+            // No jury with the same linkedIn in the database
+            if (candidat.length === 0) {
+                return res.json({
+                    emailNotTaken: true
+                });
+            }
+
+            // Validate the 'edit jury' form
+            if (candidatId) {
+                if (candidatId === candidatt.id_candidat.toString()) {
+                    return res.json({
+                        emailNotTaken: true
+                    })
+                } else {
+                    return res.json({
+                        emailNotTaken: false
+                    })
+                }
+            }
+
+            // Validate the 'create jury' form
+            else {
+                res.json({
+                    emailNotTaken: false
+                })
+            }
+        }
+    })
+}
+
+module.exports.CheckGSMNotTaken = (req, res) => {
+    const candidatId = req.body.id_candidat;
+    console.log("candidatId", candidatId)
+
+    conn.query('Select * FROM candidat  WHERE GSM = ?', [req.body.GSM], (err, candidat) => {
+        console.log("candidat ddd", candidat.length)
+        if (err) {
+            console.log("err")
+            res.json({
+                GSMNotTaken: true
+            })
+        } else {
+            // No jury with the same linkedIn in the database
+            if (candidat.length === 0) {
+                return res.json({
+                    GSMNotTaken: true
+                });
+            }
+
+            // Validate the 'edit jury' form
+            if (candidatId) {
+                if (candidatId === candidatt.id_candidat.toString()) {
+                    return res.json({
+                        GSMNotTaken: true
+                    })
+                } else {
+                    return res.json({
+                        GSMNotTaken: false
+                    })
+                }
+            }
+
+            // Validate the 'create jury' form
+            else {
+                res.json({
+                    GSMNotTaken: false
+                })
+            }
+        }
+    })
+}
